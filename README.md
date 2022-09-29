@@ -24,16 +24,21 @@
 - **Passo 3:** No arquivo _appsettings.Development.json_ configure o comando para iniciar suas migrations: 
     ```
     "ConnectionStrings": {
-        "ConexaoPadrao": "Server=localhost\\sqlexpress; Initial Catalog={seucontext}Mvc; Integrated Security=True"
+        "ConexaoPadrao": "Server=localhost\\sqlexpress; Initial Catalog={seucontext}; Integrated Security=True"
     }        
     ```
-- **Passo 4:** No arquivo _Program.cs_ abaixo do comentário _Add services to the container._ configure o seguinte comando:
+- **Passo 4:** Importe a pasta **Context** e o **Entity Framework** para seu arquivo _Program.cs_:
+    ```
+    using {sua pasta do programa}.Context;
+    using Microsoft.EntityFrameworkCore;
+    ```
+- **Passo 5:** No arquivo _Program.cs_ abaixo do comentário _Add services to the container._ configure o seguinte comando:
     ```
     builder.Services.AddDbContext<{seucontext}>(options => 
         options.UseSqlServer(builder.Configuration.GetConnectionString("ConexaoPadrao")));
     ```
-- **Passo 5:** Crie agora suas migrations de acordo com a model que você criou. Use o comando `dotnet ef migrations add {nomeDaMigration}`
-- **Passo 6:** Com a pasta migration criada agora crie os dados no seu DB com o seguinte comando `dotnet ef database update`
+- **Passo 6:** Crie agora suas migrations de acordo com a model que você criou. Use o comando `dotnet ef migrations add {nomeDaMigration}`
+- **Passo 7:** Com a pasta migration criada agora crie os dados no seu DB com o seguinte comando `dotnet ef database update`
 
 ## Resumo da programação
 
